@@ -9,12 +9,12 @@ Add the repository to your `composer.json` file as shown below:
       "type": "package",
       "package": {
         "name": "yoerioptr/drupal_brecht",
-        "version": "dev-main",
+        "version": "dev-master",
         "type": "drupal-module",
         "source": {
           "url": "https://github.com/yoerioptr/drupal_brecht.git",
           "type": "git",
-          "reference": "main"
+          "reference": "master"
         }
       }
     }
