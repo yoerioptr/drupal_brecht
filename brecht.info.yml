@@ -1,0 +1,5 @@
+name: Brecht
+description: Enables the brigadier break-it-all functionality on your site
+type: module
+core_version_requirement: ^9 || ^10
+package: Brecht
