@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Template\AttributeString;
+
 /**
  * Implements hook_preprocess().
  */
@@ -8,16 +10,34 @@ function brecht_preprocess(array &$variables, string $hook): void {
     $files = glob(realpath(\Drupal::service('extension.list.module')->getPath('brecht')) . '/images' . '/*.*');
     $file = array_rand($files);
 
-    if (isset($variables['responsive_image']['#uri'])) {
-      $variables['responsive_image']['#uri'] = 'module://brecht/images/' . basename($files[$file]);
-    }
-
-    if (isset($variables['image']['#uri'])) {
-      $variables['image']['#uri'] = 'module://brecht/images/' . basename($files[$file]);
+    foreach (['img_element', 'responsive_image', 'image'] as $type) {
+      if (isset($variables[$type]['#uri'])) {
+        $variables[$type]['#uri'] = 'module://brecht/images/' . basename($files[$file]);
+      }
     }
 
     if (isset($variables['uri'])) {
-      $variables['uri'] = '/modules/custom/brecht/images/' . basename($files[$file]);
+      $variables['uri'] = 'module://brecht/images/' . basename($files[$file]);
+    }
+
+    if (isset($variables['attributes']['srcset'])) {
+      $variables['attributes']['srcset'] = new AttributeString(
+        'srcset',
+        file_create_url('module://brecht/images/' . basename($files[$file])) . ' 1x'
+      );
+    }
+
+    if (isset($variables['sources'])) {
+      /** @var \Drupal\Core\Template\Attribute $source */
+      foreach ($variables['sources'] as $key => $source) {
+        $storage = $source->storage();
+        $storage['type'] = new AttributeString('type', 'image/png');
+        $storage['srcset'] = new AttributeString(
+          'srcset',
+          file_create_url('module://brecht/images/' . basename($files[$file])) . ' 1x'
+        );
+        $variables['sources'][$key] = new \Drupal\Core\Template\Attribute($storage);
+      }
     }
   }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "yoerioptr/drupal_brecht",
+  "description": "Enables the brigadier break-it-all functionality on your site",
+  "type": "drupal-module",
+  "require": {
+    "php": ">=8.0",
+    "drupal/core": "^9 || ^10",
+    "cweagans/composer-patches": "1.x-dev"
+  },
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Add stream wrappers to access extension files": "https://www.drupal.org/files/issues/2021-12-15/1308152-395.patch"
+      }
+    }
+  }
+}
