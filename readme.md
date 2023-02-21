@@ -22,6 +22,19 @@ Add the repository to your `composer.json` file as shown below:
 }
 ```
 
+Add the following core patch:
+```json
+{
+  "extra": {
+    "patches": {
+      "drupal/core": {
+        "Add stream wrappers to access extension files": "https://www.drupal.org/files/issues/2021-12-15/1308152-395.patch"
+      }
+    }
+  }
+}
+```
+
 Install the module using composer:
 
 ```bash
